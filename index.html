@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wallis Minotaur</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('https://i.postimg.cc/265PzDzq/Fondo.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+    }
+
+    header {
+      background-color: #7d060aaf;
+      color: white;
+      padding: 20px;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .brand-title {
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .btn-localizar {
+      background: #5d0303ae;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 5px;
+    }
+
+    .content {
+      display: flex;
+      flex-wrap: nowrap;
+      min-height: calc(100vh - 80px);
+    }
+
+    .sidebar {
+      background: rgba(0, 0, 0, 0.8);
+      width: 250px;
+      padding: 20px;
+      flex-shrink: 0;
+    }
+
+    .sidebar ul {
+      list-style: none;
+    }
+
+    .sidebar li {
+      padding: 10px 0;
+      border-bottom: 1px solid #555;
+      cursor: pointer;
+      color: white;
+    }
+
+    .main-area {
+      flex: 1;
+      padding: 20px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .content-box {
+      max-width: 600px;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: left;
+      color: white;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .gray-background {
+      background: rgba(200, 200, 200, 0.8);
+      color: black;
+    }
+
+    .content-box h2 {
+      margin-bottom: 10px;
+    }
+
+    .content-box img {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-top: 15px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      border: 2px solid #fff;
+    }
+
+    @media (max-width: 768px) {
+      .content {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+      }
+
+      .main-area {
+        width: 100%;
+      }
+
+      .content-box {
+        width: 100%;
+      }
+    }
+
+    .sidebar li:hover {
+      color: #ffcc00;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top-bar">
+      <h1 class="brand-title">Wallis Minotaur</h1>
+      <button class="btn-localizar">📍 Localiza el Proyecto</button>
+    </div>
+  </header>
+
+  <div class="content">
+    <aside class="sidebar">
+      <ul>
+        <li id="intro">Introducción al Robot de Batalla</li>
+        <li id="diseno">Diseño Mecánico</li>
+        <li id="arquitectura">Arquitectura Electrónica</li>
+        <li id="control">Sistema de Control</li>
+        <li id="pruebas">Pruebas y Evaluación</li>
+        <li id="resultados">Resultados</li>
+        <li id="conclusiones">Conclusiones</li>
+        <li id="referencias">Referencias</li>
+      </ul>
+    </aside>
+
+    <div class="main-area">
+      <div class="content-box gray-background" id="content-box">
+        <h2>Bienvenido</h2>
+        <p>Selecciona un tema del menú para ver la información aquí.</p>
+        <img id="section-image" src="https://i.postimg.cc/5NpLzW19/WALLIS.png" alt="Imagen sección">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const contents = {
+      intro: {
+        text: "<h2>Introducción al Robot de Batalla</h2><p>Este robot ha sido diseñado para competir en batallas autónomas utilizando sensores avanzados, motores de alta potencia y algoritmos de inteligencia artificial.</p>",
+        img: "https://i.postimg.cc/mDYfXw2j/Robot3D.jpg"
+      },
+      diseno: {
+        text: "<h2>Diseño Mecánico</h2><p>El diseño mecánico incluye un chasis resistente, ruedas todoterreno y un sistema de suspensión para enfrentar cualquier terreno.</p>",
+        img: "https://i.postimg.cc/C5ZFv8Xx/3-D-DISE-O.png"
+      },
+      arquitectura: {
+        text: "<h2>Arquitectura Electrónica</h2><p>La arquitectura electrónica se compone de microcontroladores, sensores, actuadores y sistemas de comunicación inalámbrica.</p>",
+        img: "https://i.postimg.cc/6pPXyqmr/Armadodel-Robot.jpg"
+      },
+      control: {
+        text: "<h2>Sistema de Control</h2><p>El sistema de control permite al robot tomar decisiones en tiempo real, adaptándose a las condiciones de la batalla. Para el control del robot se usó una palanca de Play 4, integrada mediante códigos y con ayuda de un ESP32.</p>",
+        img: "https://i.postimg.cc/W3yVJ3zL/Palanca.png"
+      },
+      pruebas: {
+        text: "<h2>Pruebas y Evaluación</h2><p>Se realizaron pruebas exhaustivas para asegurar la fiabilidad y eficiencia del robot en distintas condiciones.</p>",
+        img: "https://i.postimg.cc/hG7qxnkH/Pelea1.jpg"
+      },
+      resultados: {
+        text: "<h2>Resultados</h2><p>Los resultados muestran un rendimiento superior frente a competidores, destacando en velocidad y maniobrabilidad.</p>",
+        img: "https://i.postimg.cc/FFqFYPkd/Arquitectura.jpg"
+      },
+      conclusiones: {
+        text: "<h2>Conclusiones</h2><p>El proyecto logró cumplir los objetivos planteados, demostrando avances significativos en robótica de combate.</p>"
+      },
+      referencias: {
+        text: "<h2>Referencias</h2><p>Se consultaron artículos académicos, manuales técnicos y experiencias previas en competiciones de robótica.</p>"
+      }
+    };
+
+    Object.keys(contents).forEach(id => {
+      document.getElementById(id).addEventListener('click', function() {
+        const box = document.getElementById('content-box');
+        let html = contents[id].text;
+        if (contents[id].img) {
+          html += `<img src="${contents[id].img}" alt="Imagen sección">`;
+        }
+        box.innerHTML = html;
+
+        // Elimina el fondo gris en cualquier sección distinta de Bienvenido
+        box.classList.remove('gray-background');
+      });
+    });
+  </script>
+</body>
+</html>
