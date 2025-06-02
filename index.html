@@ -2,107 +2,169 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Wallis Minotaur - Proyecto de Grado</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
-      font-family: 'Georgia', serif;
+      font-family: 'Times New Roman', serif;
       background-color: #f4f4f4;
       color: #222;
-      line-height: 1.8;
-      font-size: 17px;
+      margin: 0;
     }
 
     header {
-      background-color: #ffffff;
+      background-color: #fff;
       text-align: center;
-      padding: 40px 20px 20px;
+      padding: 50px 20px 40px;
       border-bottom: 3px solid #8b0000;
+      max-width: 1000px;
+      margin: auto;
     }
 
     .logo-header {
-      max-height: 130px;
-      margin-bottom: 10px;
+      max-height: 220px;
+      width: auto;
+      margin: 0 auto 20px auto;
+      display: block;
+      border: none;
+      padding: 0;
     }
 
     .title {
-      font-size: 26px;
+      font-size: 32px;
       color: #8b0000;
       font-weight: bold;
       margin-top: 10px;
+      letter-spacing: 1px;
     }
 
-    nav {
-      background-color: #fff;
-      border-top: 1px solid #ccc;
-      border-bottom: 2px solid #8b0000;
+    .subtitle {
+      font-size: 20px;
+      margin-top: 8px;
+      font-style: italic;
+      color: #555;
     }
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-      padding: 15px 10px;
-    }
-
-    nav li {
+    .hamburger {
+      position: fixed;
+      top: 25px;
+      right: 20px;
       cursor: pointer;
-      font-weight: bold;
-      color: #8b0000;
-      font-size: 16px;
+      width: 30px;
+      height: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 1001;
     }
 
-    nav li:hover {
-      text-decoration: underline;
+    .hamburger span {
+      height: 4px;
+      background-color: #8b0000;
+      border-radius: 1px;
+      transition: background-color 0.3s ease;
+    }
+
+    .hamburger:hover span {
+      background-color: #a52a2a;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.4);
+      z-index: 1000;
+    }
+
+    nav.sidebar {
+      position: fixed;
+      top: 0; right: -260px;
+      width: 260px;
+      height: 100%;
+      background-color: #fff;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.15);
+      padding-top: 70px;
+      transition: right 0.3s ease;
+      z-index: 1002;
+      font-family: 'Times New Roman', serif;
+      font-weight: 600;
+      font-size: 18px;
+      color: #8b0000;
+    }
+
+    nav.sidebar.open {
+      right: 0;
+    }
+
+    nav.sidebar ul {
+      list-style: none;
+      padding: 0 20px;
+      margin: 0;
+    }
+
+    nav.sidebar li {
+      padding: 18px 0;
+      border-bottom: 1px solid #e6cccc;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    nav.sidebar li:last-child {
+      border-bottom: none;
+    }
+
+    nav.sidebar li:hover,
+    nav.sidebar li:focus {
+      background-color: #f9e6e6;
+      outline: none;
     }
 
     .container {
       max-width: 1000px;
-      margin: auto;
-      padding: 40px 20px;
+      margin: 30px auto 60px;
+      padding: 40px 30px;
       background-color: #fff;
-    }
-
-    .content-section {
-      margin-bottom: 50px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+      border-radius: 8px;
     }
 
     .content-section h2 {
       color: #8b0000;
-      font-size: 24px;
-      margin-bottom: 20px;
-      border-bottom: 2px solid #8b0000;
-      padding-bottom: 5px;
+      font-size: 26px;
+      margin-bottom: 22px;
+      border-bottom: 3px solid #8b0000;
+      padding-bottom: 6px;
+      letter-spacing: 0.5px;
     }
 
     .content-layout {
       display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      align-items: center;
+      gap: 20px;
+      align-items: flex-start;
+      flex-wrap: nowrap;
     }
 
     .text-content {
-      flex: 1 1 60%;
+      flex: 1 1 65%;
       text-align: justify;
+      font-size: 18px;
+      line-height: 1.8;
+      color: #333;
     }
 
     .image-content {
       flex: 1 1 35%;
+      text-align: center;
     }
 
     .image-content img {
-      max-width: 100%;
+      max-width: 300px;
       height: auto;
-      border: 1px solid #ccc;
+      border: none;
+      display: block;
+      margin: auto;
     }
 
     footer {
@@ -112,124 +174,216 @@
       text-align: center;
       color: #444;
       border-top: 1px solid #ccc;
+      max-width: 1000px;
+      margin: auto;
+      border-radius: 0 0 8px 8px;
+      box-shadow: inset 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    .video-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .horizontal-video {
+      width: 320px;
+      height: 180px;
+      border: none;
+      border-radius: 6px;
+    }
+
+    .vertical-video {
+      width: 240px;
+      height: 426px;
+      border: none;
+      border-radius: 6px;
     }
 
     @media (max-width: 768px) {
       .content-layout {
         flex-direction: column;
-      }
-
-      nav ul {
-        flex-direction: column;
-        align-items: center;
+        flex-wrap: wrap;
       }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <img src="https://i.postimg.cc/5NpLzW19/WALLIS.png" alt="Logo Wallis" class="logo-header" />
-    <div class="title">Wallis Minotaur: Proyecto de Grado</div>
-    <p style="font-size: 18px; margin-top: 5px;">Desarrollo de un Robot Autónomo de Batalla</p>
-  </header>
+<div class="hamburger" onclick="toggleMenu()" aria-label="Menú">
+  <span></span><span></span><span></span>
+</div>
+<div class="overlay" onclick="toggleMenu()"></div>
 
-  <nav>
-    <ul>
-      <li onclick="mostrar('intro')">Introducción</li>
-      <li onclick="mostrar('diseno')">Diseño Mecánico</li>
-      <li onclick="mostrar('arquitectura')">Arquitectura Electrónica</li>
-      <li onclick="mostrar('control')">Sistema de Control</li>
-      <li onclick="mostrar('pruebas')">Pruebas</li>
-      <li onclick="mostrar('resultados')">Resultados</li>
-      <li onclick="mostrar('conclusiones')">Conclusiones</li>
-      <li onclick="mostrar('referencias')">Referencias</li>
-    </ul>
-  </nav>
+<nav class="sidebar" id="sidebar">
+  <ul>
+    <li onclick="mostrar('inicio'); toggleMenu()">Inicio</li>
+    <li onclick="mostrar('intro'); toggleMenu()">Introducción</li>
+    <li onclick="mostrar('diseno'); toggleMenu()">Diseño Mecánico</li>
+    <li onclick="mostrar('arquitectura'); toggleMenu()">Arquitectura Electrónica</li>
+    <li onclick="mostrar('control'); toggleMenu()">Sistema de Control</li>
+    <li onclick="mostrar('pruebas'); toggleMenu()">Pruebas</li>
+    <li onclick="mostrar('resultados'); toggleMenu()">Resultados</li>
+    <li onclick="mostrar('conclusiones'); toggleMenu()">Conclusiones</li>
+    <li onclick="mostrar('referencias'); toggleMenu()">Referencias</li>
+  </ul>
+</nav>
 
-  <div class="container" id="contenido">
-    <div class="content-section">
-      <h2>Bienvenida</h2>
-      <div class="content-layout">
-        <div class="text-content">
-          <p>Seleccione una sección del menú superior para visualizar el contenido del proyecto de grado titulado <strong>"Wallis Minotaur: Robot Autónomo de Batalla"</strong>, el cual fue desarrollado como trabajo final de carrera en el área de ingeniería robótica.</p>
-        </div>
-        <div class="image-content">
-          <img src="https://i.postimg.cc/5NpLzW19/WALLIS.png" alt="Wallis Minotaur">
-        </div>
+<header>
+  <img src="https://i.postimg.cc/5NpLzW19/WALLIS.png" class="logo-header" alt="Wallis Minotaur">
+  <div class="title">Wallis Minotaur: Proyecto de Grado</div>
+  <p class="subtitle">Desarrollo de un Robot Autónomo de Batalla</p>
+</header>
+
+<main class="container" id="contenido">
+  <div class="content-section" id="inicio">
+    <h2>Bienvenida</h2>
+    <div class="content-layout">
+      <div class="text-content">
+        <p><strong>Desarrollo de un robot autónomo de batalla eficiente y confiable.</strong></p>
+        <p><strong>Integrantes:</strong></p>
+        <p>Carolina Sanmartin, Erika Tenezaca, Nicole Guaycha</p>
       </div>
     </div>
   </div>
+</main>
 
-  <footer>
-    <p>Trabajo académico presentado como requisito para la obtención del título profesional.</p>
-    <p>Asistencia técnica proporcionada por inteligencia artificial (ChatGPT).</p>
-    <p style="margin-top: 10px;"><strong>Referencia APA:</strong><br>
-    OpenAI. (2025). <em>ChatGPT (versión GPT-4)</em> [Modelo de lenguaje de inteligencia artificial]. https://chat.openai.com</p>
-  </footer>
+<footer>
+  <p>Trabajo académico presentado como requisito para la obtención del título profesional.</p>
+  <p><strong>Contactos:</strong> wallisminotaur@gmail.com | colricaurte@gmail.com | Teléfono: (07) 289-0571</p>
+</footer>
 
-  <script>
-    const secciones = {
-      intro: {
-        titulo: "1. Introducción",
-        texto: "Este robot ha sido diseñado para competir en batallas autónomas utilizando sensores avanzados, motores de alta potencia y algoritmos de inteligencia artificial. Representa una propuesta innovadora para la robótica móvil aplicada a entornos dinámicos.",
-        img: "https://i.postimg.cc/mDYfXw2j/Robot3D.jpg"
-      },
-      diseno: {
-        titulo: "2. Diseño Mecánico",
-        texto: "El diseño mecánico incluye un chasis resistente, ruedas todoterreno y un sistema de suspensión capaz de adaptarse a distintas superficies. Se priorizó la durabilidad y movilidad del sistema.",
-        img: "https://i.postimg.cc/C5ZFv8Xx/3-D-DISE-O.png"
-      },
-      arquitectura: {
-        titulo: "3. Arquitectura Electrónica",
-        texto: "La arquitectura del sistema está basada en microcontroladores ESP32, sensores ultrasónicos, módulos de comunicación inalámbrica y actuadores de alto torque. El diseño modular permite una fácil integración y mantenimiento.",
-        img: "https://i.postimg.cc/6pPXyqmr/Armadodel-Robot.jpg"
-      },
-      control: {
-        titulo: "4. Sistema de Control",
-        texto: "El sistema de control permite al robot tomar decisiones en tiempo real. Se implementó una interfaz de mando con joystick de PlayStation 4, y la programación se realizó utilizando entornos de desarrollo en C++ y MicroPython.",
-        img: "https://i.postimg.cc/W3yVJ3zL/Palanca.png"
-      },
-      pruebas: {
-        titulo: "5. Pruebas y Evaluación",
-        texto: "Se realizaron múltiples pruebas en escenarios simulados y reales para evaluar el comportamiento del robot. Se midieron parámetros como velocidad de respuesta, precisión de sensores y resistencia estructural.",
-        img: "https://i.postimg.cc/hG7qxnkH/Pelea1.jpg"
-      },
-      resultados: {
-        titulo: "6. Resultados",
-        texto: "Los resultados obtenidos muestran un rendimiento competitivo en comparación con robots de características similares, destacando la estabilidad del control y la efectividad en combate.",
-        img: "https://i.postimg.cc/FFqFYPkd/Arquitectura.jpg"
-      },
-      conclusiones: {
-        titulo: "7. Conclusiones",
-        texto: "El proyecto Wallis Minotaur alcanzó los objetivos planteados, demostrando la viabilidad de construir un sistema robótico autónomo eficiente y versátil, aplicable tanto en contextos académicos como industriales.",
-        img: ""
-      },
-      referencias: {
-        titulo: "8. Referencias",
-        texto: `<p>Autor, A. A. (Año). <em>Título del libro</em>. Editorial.</p>
-                <p>Autor, B. B. (Año). Título del artículo. <em>Nombre de la Revista</em>, volumen(número), páginas. https://doi.org/xxx</p>
-                <p>OpenAI. (2025). <em>ChatGPT (versión GPT-4)</em> [Modelo de lenguaje de inteligencia artificial]. https://chat.openai.com</p>`,
-        img: ""
-      }
-    };
-
-    function mostrar(seccion) {
-      const contenido = document.getElementById('contenido');
-      const sec = secciones[seccion];
-      contenido.innerHTML = `
-        <div class="content-section">
-          <h2>${sec.titulo}</h2>
-          <div class="content-layout">
-            <div class="text-content">
-              <p>${sec.texto}</p>
-            </div>
-            ${sec.img ? `<div class="image-content"><img src="${sec.img}" alt="Imagen de sección"></div>` : ""}
-          </div>
+<script>
+const secciones = {
+  inicio: {
+    titulo: "Bienvenida",
+    texto: `<p><strong>Desarrollo de un robot autónomo de batalla eficiente y confiable.</strong></p>
+            <p><strong>Integrantes:</strong></p>
+            <p>Carolina Sanmartin, Erika Tenezaca, Nicole Guaycha</p>`,
+    img: ""
+  },
+  intro: {
+    titulo: "1. Introducción",
+    texto: `El desarrollo de un robot autónomo de batalla consiste en diseñar un sistema que integre mecánica,
+    electrónica y control inteligente para competir en un entorno adverso, empleando sensores y actuadores eficientes.`,
+    img: "https://i.postimg.cc/mDYfXw2j/Robot3D.jpg"
+  },
+  diseno: {
+    titulo: "2. Diseño Mecánico",
+    texto: `El robot cuenta con un chasis reforzado, ruedas de alta tracción y una estructura que permite maniobrabilidad en terrenos variados.`,
+    img: "https://i.postimg.cc/VkrmpG6M/dise-o-3d.png"
+  },
+  arquitectura: {
+    titulo: "3. Arquitectura Electrónica",
+    texto: `Inicialmente, el sistema utilizaba un Arduino Nano junto con un módulo Bluetooth que permitía la conexión y control remoto mediante un celular. Posteriormente, se realizó una actualización tecnológica para mejorar la experiencia y el rendimiento: ahora el robot se controla a través de una palanca de PlayStation 4, utilizando un microcontrolador ESP32 que gestiona la comunicación y control inalámbrico.`,
+    customHTML: `
+      <div style="display:flex; gap: 30px; flex-wrap: wrap; justify-content: center; margin-top: 25px;">
+        <div style="flex: 1 1 45%; text-align: center;">
+          <img src="https://i.postimg.cc/65pWRfCF/Circuito-Arduino.jpg" alt="Arquitectura con Arduino" style="max-width: 100%; border-radius: 8px;"/>
+          <h3 style="color: #8b0000; margin-top: 10px; font-family: 'Times New Roman', serif;">Arquitectura con Arduino</h3>
         </div>
-      `;
+        <div style="flex: 1 1 45%; text-align: center;">
+          <img src="https://i.postimg.cc/2yQFq5G9/ESP32-Ficticia.jpg" alt="Arquitectura con ESP32" style="max-width: 100%; border-radius: 8px; filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.15));"/>
+          <h3 style="color: #8b0000; margin-top: 10px; font-family: 'Times New Roman', serif;">Arquitectura con ESP32</h3>
+        </div>
+      </div>
+    `
+  },
+  control: {
+    titulo: "4. Sistema de Control",
+    texto: `El sistema de control implementa algoritmos para la navegación autónoma y permite también control manual mediante joystick PS4.`,
+    img: "https://i.postimg.cc/W3yVJ3zL/Palanca.png"
+  },
+  pruebas: {
+    titulo: "5. Pruebas",
+    texto: `Se realizaron pruebas funcionales para evaluar el desempeño del robot en diferentes escenarios y condiciones.`,
+    img: "",
+    verticalVideos: [
+      "https://www.youtube.com/embed/u-X5iiiUE-Q",
+      "https://www.youtube.com/embed/lx-6gyG7-c4"
+    ]
+  },
+  resultados: {
+    titulo: "6. Resultados",
+    texto: `El robot mostró un buen rendimiento en sus funciones autónomas y en las batallas, demostrando estabilidad y rapidez.`,
+    img: "",
+    videos: [
+      "https://www.youtube.com/embed/6jdLpM_e3oU",
+      "https://www.youtube.com/embed/5cq3ceakaEI",
+      "https://www.youtube.com/embed/NLStbRzkNGw"
+    ]
+  },
+  conclusiones: {
+    titulo: "7. Conclusiones",
+    texto: `El proyecto alcanzó sus objetivos, logrando un robot competitivo, autónomo y con capacidad de control manual.`,
+    img: "",
+    verticalVideos: [
+      "https://www.youtube.com/embed/K0fbI3ufVpg",
+      "https://www.youtube.com/embed/jx5NpGARXaE"
+    ]
+  },
+  referencias: {
+    titulo: "8. Referencias",
+    texto: `<p>Contactos:</p>
+           <p>Email: wallisminotaur@gmail.com</p>
+           <p>Email: colricaurte@gmail.com</p>
+           <p>Teléfono: (07) 289-0571</p>`,
+    img: ""
+  }
+};
+
+function mostrar(seccion) {
+  const contenido = document.getElementById("contenido");
+  const sec = secciones[seccion];
+  if (!sec) return;
+
+  const imgHTML = sec.customHTML ? sec.customHTML : (sec.img ? `<div class="image-content"><img src="${sec.img}" alt="Imagen de sección"></div>` : "");
+
+  let videosHTML = "";
+  if (sec.videos) {
+    videosHTML = '<div class="video-grid">';
+    for (const v of sec.videos) {
+      videosHTML += `<iframe class="horizontal-video" src="${v}" frameborder="0" allowfullscreen></iframe>`;
     }
-  </script>
+    videosHTML += '</div>';
+  }
+  if (sec.verticalVideos) {
+    videosHTML += '<div class="video-grid">';
+    for (const v of sec.verticalVideos) {
+      videosHTML += `<iframe class="vertical-video" src="${v}" frameborder="0" allowfullscreen></iframe>`;
+    }
+    videosHTML += '</div>';
+  }
+
+  contenido.innerHTML = `
+    <div class="content-section">
+      <h2>${sec.titulo}</h2>
+      <div class="content-layout">
+        <div class="text-content">${sec.texto}</div>
+        ${imgHTML}
+      </div>
+      ${videosHTML}
+    </div>
+  `;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleMenu() {
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.querySelector(".overlay");
+  sidebar.classList.toggle("open");
+  if (sidebar.classList.contains("open")) {
+    overlay.style.display = "block";
+  } else {
+    overlay.style.display = "none";
+  }
+}
+
+// Mostrar la sección inicio por defecto
+mostrar("inicio");
+</script>
 
 </body>
 </html>
